@@ -21,11 +21,16 @@ function Reg()
                 "https://cabsystemsms-1.onrender.com/register",
                 data
             )
-            alert(res.data)
+            // res.data may be an object; stringify for a readable alert
+            const resp = res.data;
+            const message = typeof resp === 'object' ? JSON.stringify(resp) : String(resp);
+            alert(message);
         }
         catch(xyz){
-            // alert(xyz.response.data)
-            alert(xyz.response?.data || "Error")
+            // show readable error payload
+            const errPayload = xyz?.response?.data ?? xyz?.message ?? 'Error';
+            const errMsg = typeof errPayload === 'object' ? JSON.stringify(errPayload) : String(errPayload);
+            alert(errMsg);
         }
     }
     return(
